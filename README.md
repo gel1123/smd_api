@@ -1,5 +1,17 @@
 ## SpringBoot + MySQL + Docker で APIサーバを構築する
 
+### これは何？
+基本的には、こちらの記事に記載の SpringBoot + MySQL + Docker 環境のコードです。
+https://zenn.dev/nishiharu/articles/7f27b8c580f896
+
+ただ、下記の点などいくつか記事のコードから改変した部分があります。
+
++ Javaのバージョンを15から17に引き上げた
++ 上記に伴い、Javaコンテナを用意するときにxargsインストールのためのコマンド実行処理が必要になったので、`openjdk:17` 用の Dockerfile を用意し、そこからビルドを行うよう変更した
++ SpringBootのバージョンを 3.0.0 (M3) に引き上げた
++ リポジトリの名前に沿ったSpringBootプロジェクト名にしてあるので、SpringBootプロジェクトのパッケージ名が異なる
++ Debug構成を `ApiApplicatioin.java` からVSCodeで直接開けるよう追加
+
 ### 始め方
 このリポジトリをpullしたらVSCodeで F1 のメニューから下記を実行してください。
 
