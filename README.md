@@ -21,10 +21,32 @@ https://start.spring.io/
   - Packaging: Jar
   - Java: 17
 
-#### Open JDK17 で gradlew 実行時に `gradlew: line 234: xargs: command not found` が発生する
+#### Open JDK17 で `./gradlew build` 実行時に `gradlew: line 234: xargs: command not found` が発生する
 
 Javaのコンテナで `microdnf install findutils` を実行すれば xargs をインストールできる。
 （ microdnf は、パッケージマネージャ yum の後継である dnf の軽量版 ）
 
 https://github.com/gradle/gradle/issues/19682
 
+#### コンテナ初回起動でやること (VSCode未使用)
+
+```
+# コンテナ起動
+docker-compose up -d
+
+# javaコンテナの中に入る
+docker exec -it java /bin/bash
+
+# とりあえず初回ビルド
+./gradlew build
+```
+
+#### Spring Boot アプリケーションを 起動 / 停止 したい
+
+```
+# 起動
+java -jar build/libs/api-0.0.1-SNAPSHOT.jar
+
+# 停止
+java -jar build/libs/api-0.0.1-SNAPSHOT.jar stop
+```
