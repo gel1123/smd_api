@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  mysql:
+    build: ./mysql
+    container_name: mysql
+    env_file:
+      - ./mysql/db.env
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/log:/var/log/mysql
+    ports:
+      - 3306:3306
+  dbclient:
+    image: phpmyadmin/phpmyadmin
+    container_name: dbclient
+    environment:
+      - PMA_ARBITARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=dev_usr
+      - PMA_PASSWORD=dev_usr_pass
+    links:
+      - mysql
+    ports:
+      - "4200:80"
+    volumes:
+      - ./dbclient/sessions:/sessions
+    depends_on:
+      - mysql
+  java:
+    build: ./java
+    container_name: java
+    env_file:
+      - ./mysql/db.env
+    tty: true
+    working_dir: /app
+    volumes:
+      - ../spring_prj:/app
+    ports:
+      - 8080:8080
+      - 5050:5050
+    depends_on:
+      - mysql
