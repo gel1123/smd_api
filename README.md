@@ -28,7 +28,14 @@ Javaのコンテナで `microdnf install findutils` を実行すれば xargs を
 
 https://github.com/gradle/gradle/issues/19682
 
-#### コンテナ初回起動でやること (VSCode未使用)
+#### devcontainer.json の extensions で指定したVSCode拡張機能がインストールされない
+
+extensions はコンテナ作成時に動作する。
+つまり、コンテナ作成をVSCode経由ではなく、コマンド `docker-compose up` でコンテナを作成した場合には、その後 VSCode 経由でコンテナに入っても、拡張機能がインストールされていないままになる。
+
+この状態から拡張機能を自動でインストールさせたいなら、一度コンテナを削除した上で、VSCodeの `Rebuild Container` を実行する。
+
+#### VSCodeを使わずにコンテナに入る方法
 
 ```
 # コンテナ起動
@@ -36,8 +43,11 @@ docker-compose up -d
 
 # javaコンテナの中に入る
 docker exec -it java /bin/bash
+```
 
-# とりあえず初回ビルド
+#### SpringBoot アプリケーションをビルドする
+
+```
 ./gradlew build
 ```
 
