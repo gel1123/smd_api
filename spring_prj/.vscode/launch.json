@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ApiApplication",
+            "request": "launch",
+            "mainClass": "com.smd.api.ApiApplication",
+            "projectName": "api"
+        },
+        {
+            "type": "java",
             "name": "java (Attach)",
             "request": "attach",
             "hostName": "java",
