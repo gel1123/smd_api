@@ -1,10 +1,12 @@
 ## SpringBoot + MySQL + Docker で APIサーバを構築する
 
 ### これは何？
-基本的には、こちらの記事に記載の SpringBoot + MySQL + Docker 環境のコードです。
+基本的には、こちらの記事に記載の SpringBoot + MySQL + Docker 環境のコードを一部改変したものです。
 https://zenn.dev/nishiharu/articles/7f27b8c580f896
 
-ただ、下記の点などいくつか記事のコードから改変した部分があります。
+なので、インフラ周りの解説は上記の記事の解説がとても分かりやすいので、そちらを読みながらコードを読んでいけば、ある程度理解できるものになっています。
+
+上記の記事から改変した箇所は次のとおりです。
 
 + Javaのバージョンを15から17に引き上げた
 + 上記に伴い、Javaコンテナを用意するときにxargsインストールのためのコマンド実行処理が必要になったので、`openjdk:17` 用の Dockerfile を用意し、そこからビルドを行うよう変更した
@@ -26,6 +28,19 @@ Remote Containers: Rebuild and Reopen Container
 
 コンテナに入る際、どのコンテナに入るべきか問われた場合には `java` コンテナを選んでください。
 （他のコンテナは中に入って開発する用途ではないため）
+
+javaコンテナに入ったら、`/app` ディレクトリ直下で `./gradlew build` を実行してください。
+（詳しくは後述）
+
+上記が BUILD SUCCESS で完了したら、`java -jar build/libs/api-0.0.1-SNAPSHOT.jar` でSpringBootを起動できます。
+
+サンプルコードでは `http://localhost:8080/showaccount` でデータベース内の情報を取得するAPIが動作します。
+
+また、`http://localhost:8080/hello` で簡単な文字列を返すだけのAPIが動作します。
+
+これらのURLに紐づく動作は `spring_prj/src/main/java/com/smd/api/controller/AccountController.java` など `XXXController` クラスにアノテーションと共に定義しています。
+
+SpringBootではさまざまなアノテーションが登場しますが、これらが実際にはライブラリ内の便利な機能を呼び出すコードになっていて、URLごとの処理振り分けのみならず、さまざまな役割を果たします。
 
 ### 概要
 
