@@ -34,4 +34,5 @@ out/
 /.nb-gradle/
 
 ### Application Properties ###
-application.properties
+# 基本的には非公開にすべき情報だが、今回はサンプルプロジェクトなので公開している
+# application.properties
