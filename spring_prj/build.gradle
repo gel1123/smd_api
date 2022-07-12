@@ -21,3 +21,19 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+	enabled = false
+}
+
+bootJar {
+	archiveBaseName = "api"
+	version = "0.0.1"
+	archiveClassifier = 'SNAPSHOT'
+	archiveExtension = 'jar'
+}
+
+bootRun {
+	systemProperties = System.properties
+	jvmArgs=["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5050"]
+}
